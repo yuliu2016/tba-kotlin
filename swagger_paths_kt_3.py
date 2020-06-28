@@ -106,7 +106,7 @@ def function_for_api_path(path_name, path_def):
 
 
 with open("Paths.kt", mode="w") as f:
-    print("// API Version", api_version, "\n", file=f)
+    print("// The Blue Alliance API Version", api_version, "\n", file=f)
     print(header, file=f)
     for path_key, path_definition in paths.items():
         print(function_for_api_path(path_key, path_definition), file=f)

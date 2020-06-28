@@ -56,7 +56,11 @@ def schema_to_class(key, definition):
             kotlin_type = convert_to_kotlin_case(reference_class)
 
         elif propperty_name == "alliances":
-            reference_class = property_def["properties"]["blue"]["$ref"].split("/")[-1]
+            alliance_property_def = property_def["properties"]["blue"]
+            if "$ref" in alliance_property_def:
+                reference_class = alliance_property_def["$ref"].split("/")[-1]
+            else:
+                reference_class = alliance_property_def["items"]["$ref"].split("/")[-1]
             kotlin_type = "Alliances<{kk}?>".format(kk=convert_to_kotlin_case(reference_class))
 
         else:

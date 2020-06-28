@@ -63,7 +63,11 @@ def function_code_for_definition(key, definition):
             kotlin_param_data = f"""obj("{property_name}")?.to{clz}()"""
 
         elif property_name == "alliances":
-            referenced_definition = property_def["properties"]["blue"]["$ref"].split("/")[-1]
+            alliance_property_def = property_def["properties"]["blue"]
+            if "$ref" in alliance_property_def:
+                referenced_definition = alliance_property_def["$ref"].split("/")[-1]
+            else:
+                referenced_definition = alliance_property_def["items"]["$ref"].split("/")[-1]
             kotlin_param_data = alliance_template.format(
                 property_name=property_name, clz=convert_to_kotlin_case(referenced_definition))
         else:
